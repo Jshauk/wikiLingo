@@ -11,17 +11,26 @@ $loader
     ->registerNamespace('WikiLingoWYSIWYG', $dir)
 	->register();
 
-$original = "
+/*$original = "
 __test__
 {DIV()}
 {flash movie='//www.youtube.com/v/xH2968yeG6s'}
 {DIV}";
+*/
+$source = "
+{TABS()}
+{TAB(title='')}
+{TAB}
+{TABS}
+";
+
 
 
 $wikiLingo = new WikiLingo();
-$output = $wikiLingo->parse($original);
+//$output = $wikiLingo->parse($original);
+$img = $wikiLingo->parse($source);
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG();
-$outputWYSIWYG = $wikiLingoWYSIWYG->parse($original);
+$outputWYSIWYG = $wikiLingoWYSIWYG->parse($source);
 $dts = new WikiLingoWYSIWYG_DTS();
 $dtsOutput = $dts->parse($outputWYSIWYG);
 
@@ -71,7 +80,8 @@ $script = $wikiLingo->renderScript();
     <?php echo $css . $script; ?>
 </head>
 <body>
-    <div contenteditable="false"><?php echo $output;?></div>
+    <div contenteditable="false"><?php echo $img;?></div>
+    <div contenteditable="false"><?php echo $source;?></div>
     <div contenteditable="true"><?php echo $outputWYSIWYG;?></div>
     <div contenteditable="false"><?php echo $dtsOutput;?></div>
     <input type="button" value="To Source"/>
